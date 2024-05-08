@@ -13,12 +13,17 @@ col_users = db["users"]
 app = Flask(__name__)
 
 
+@app.route("/")
+def index():
+    return jsonify({"hello": "word"})
+
+
 @app.route("/logar/user", methods=["POST"])
 def logar_usuario():
     body = request.get_json()
 
     if col_users.find_one({"email": body.get('email'), "senha": body.get('senha')}):
-        return jsonify({"resp": "sucess"}), 200
+        return jsonify({"resp": "Bem-vindo de volta!"}), 200
 
     return jsonify({"resp": "Email ou Senha Inválidos!"}), 400
 
@@ -53,4 +58,4 @@ def atualizar_usuario():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
